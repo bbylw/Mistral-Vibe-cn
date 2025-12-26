@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安装指南 - Mistral Vibe 中文文档</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/swap">
+                <rect width="32" height="32" rx="8" fill="#9d7cf6" />
+                <path d="M10 22L16 10L22 22" stroke="white" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            <span>Mistral Vibe</span>
+        </a>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-group">
+                <div class="sidebar-title">开始使用</div>
+                <a href="index.html" class="sidebar-link">CLI 介绍</a>
+                <a href="install.html" class="sidebar-link active">安装指南</a>
+                <a href="quickstart.html" class="sidebar-link">快速入门</a>
+            </div>
+            <div class="sidebar-group">
+                <div class="sidebar-title">进阶配置</div>
+                <a href="configuration.html" class="sidebar-link">配置说明</a>
+            </div>
+        </nav>
+
+        <main>
+            <h1>安装指南</h1>
+            <p>Mistral Vibe 是一个 Python 包，您可以直接在终端中安装并作为命令行工具使用。</p>
+
+            <div class="card">
+                <h3>适用人群</h3>
+                <ul>
+                    <li>终端优先的开发者。</li>
+                    <li>希望 AI 助手能与其本地环境交互的用户。</li>
+                    <li>需要可复现、脚本友好型命令行工作流的团队。</li>
+                </ul>
+            </div>
+
+            <section id="quick-install">
+                <h2>快速安装</h2>
+                <p>在您的终端中运行以下命令即可快速安装：</p>
+                <pre><code>curl -LsSf https://mistral.ai/vibe/install.sh | bash</code></pre>
+            </section>
+
+            <section id="alternative-install">
+                <h2>其他安装方式</h2>
+
+                <h3>使用 uv (推荐)</h3>
+                <p>如果您已经安装了 <a href="https://github.com/astral-sh/uv" target="_blank"
+                        style="color: var(--accent);">uv</a>，可以使用以下命令：</p>
+                <pre><code>uv tool install mistral-vibe</code></pre>
+                <p class="note" style="font-size: 0.9em; color: var(--text-muted); margin-top: 0.5rem;">
+                    如果您在使用 uv 时遇到问题，尝试添加 <code>--no-cache</code> 标志：<br>
+                    <code>uv tool install mistral-vibe --no-cache</code>
+                </p>
+
+                <h3>使用 pip</h3>
+                <p>请确保您的 Python 版本为 3.12+：</p>
+                <pre><code>pip install mistral-vibe</code></pre>
+            </section>
+
+            <section id="platform-support">
+                <h2>平台支持</h2>
+                <p>Mistral Vibe 可以在 Windows 上运行，但官方主要支持和针对 UNIX 环境进行优化。</p>
+            </section>
+
+            <section id="repository">
+                <h2>源码与贡献</h2>
+                <p>您可以克隆 GitHub 仓库进行本地安装或自定义开发：</p>
+                <pre><code>git clone https://github.com/mistralai/mistral-vibe.git
+cd mistral-vibe</code></pre>
+            </section>
+
+            <footer
+                style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center;">
+                <span>Mistral AI © 2025 · 中文文档项目</span>
+                <a href="https://github.com/mistralai/mistral-vibe" target="_blank"
+                    style="color: var(--text-muted); text-decoration: none; transition: color 0.2s;"
+                    onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">
+                    GitHub 仓库 ↗
+                </a>
+            </footer>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

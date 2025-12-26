@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mistral Vibe 中文文档 - 介绍</title>
+    <meta name="description" content="Mistral Vibe 是由 Mistral AI 模型驱动的强大命令行编程助手。">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="32" height="32" rx="8" fill="#9d7cf6" />
+                <path d="M10 22L16 10L22 22" stroke="white" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            <span>Mistral Vibe</span>
+        </a>
+        <div class="header-right">
+            <a href="https://github.com/mistralai/mistral-vibe" target="_blank" class="sidebar-link">GitHub ↗</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-group">
+                <div class="sidebar-title">开始使用</div>
+                <a href="index.html" class="sidebar-link active">CLI 介绍</a>
+                <a href="install.html" class="sidebar-link">安装指南</a>
+                <a href="quickstart.html" class="sidebar-link">快速入门</a>
+            </div>
+            <div class="sidebar-group">
+                <div class="sidebar-title">进阶配置</div>
+                <a href="configuration.html" class="sidebar-link">配置说明</a>
+            </div>
+        </nav>
+
+        <main>
+            <section id="introduction">
+                <h1>CLI 介绍</h1>
+                <p class="lead">Mistral Vibe 是一个由 Mistral AI 模型驱动的命令行编程助手。它为您的代码库提供了一个对话式界面，让您可以使用自然语言来探索、修改和与您的项目进行交互。
+                </p>
+                <div class="card">
+                    源码托管在 <a href="https://github.com/mistralai/mistral-vibe" target="_blank"
+                        style="color: var(--accent);">GitHub</a> 上，采用 Apache 2.0 开源许可证。
+                </div>
+            </section>
+
+            <section id="features">
+                <h2>核心特性</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h3>交互式对话</h3>
+                        <p>一个智能的 AI 代理，能够理解您的请求并分解复杂的开发任务。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛠️</div>
+                        <h3>强大工具集</h3>
+                        <p>内置文件操作、代码搜索、版本控制和命令执行等一系列强大工具。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📂</div>
+                        <h3>项目上下文感知</h3>
+                        <p>自动扫描文件结构和 Git 状态，为 AI 提供最相关的代码上下文。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>高级 CLI 体验</h3>
+                        <p>支持斜杠命令、文件路径自动补全以及持久化命令历史。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tools">
+                <h3>内置工具能力</h3>
+                <ul>
+                    <li><strong>文件操作：</strong>读取、写入和修补文件 (read_file, write_file, search_replace)。</li>
+                    <li><strong>命令执行：</strong>在有状态的终端中执行 shell 命令 (bash)。</li>
+                    <li><strong>代码搜索：</strong>使用 grep 递归搜索代码（支持 ripgrep）。</li>
+                    <li><strong>待办管理：</strong>管理待办事项列表以跟踪代理的工作进度。</li>
+                </ul>
+            </section>
+
+            <section id="safety">
+                <h2>安全优先</h2>
+                <p>Mistral Vibe 内置了严格的工具执行审批机制。在执行任何可能修改代码或系统的操作前，都会先行展示预览并征得您的确认。</p>
+            </section>
+
+            <footer
+                style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center;">
+                <span>Mistral AI © 2025 · 中文文档项目</span>
+                <a href="https://github.com/mistralai/mistral-vibe" target="_blank"
+                    style="color: var(--text-muted); text-decoration: none; transition: color 0.2s;"
+                    onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">
+                    GitHub 仓库 ↗
+                </a>
+            </footer>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

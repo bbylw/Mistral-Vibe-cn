@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>配置指南 - Mistral Vibe 中文文档</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/swap">
+                <rect width="32" height="32" rx="8" fill="#9d7cf6" />
+                <path d="M10 22L16 10L22 22" stroke="white" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            <span>Mistral Vibe</span>
+        </a>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-group">
+                <div class="sidebar-title">开始使用</div>
+                <a href="index.html" class="sidebar-link">CLI 介绍</a>
+                <a href="install.html" class="sidebar-link">安装指南</a>
+                <a href="quickstart.html" class="sidebar-link">快速入门</a>
+            </div>
+            <div class="sidebar-group">
+                <div class="sidebar-title">进阶配置</div>
+                <a href="configuration.html" class="sidebar-link active">配置说明</a>
+            </div>
+        </nav>
+
+        <main>
+            <h1>配置指南</h1>
+            <p>Vibe 通过 <code>config.toml</code> 文件进行配置。它会首先查找当前目录下的 <code>./.vibe/config.toml</code>，然后回退到用户根目录下的
+                <code>~/.vibe/config.toml</code>。
+            </p>
+
+            <section id="api-key">
+                <h2>API 密钥配置</h2>
+                <p>您可以通过以下三种方式配置您的 Mistral API 密钥：</p>
+                <ol>
+                    <li><strong>交互式设置：</strong>首次运行 <code>vibe</code> 时，系统会提示您输入密钥，并加密保存至 <code>~/.vibe/.env</code>。
+                    </li>
+                    <li><strong>环境变量：</strong>设置 <code>MISTRAL_API_KEY</code> 环境变量。</li>
+                    <li><strong>.env 文件：</strong>在 <code>~/.vibe/</code> 下创建 <code>.env</code> 文件并添加
+                        <code>MISTRAL_API_KEY=your_key</code>。
+                    </li>
+                </ol>
+                <p class="note"><strong>注意：</strong>如果同时设置了两者，环境变量的优先级高于 <code>.env</code> 文件。<code>.env</code> 文件专门用于存储
+                    API 密钥和其他提供商凭证，通用配置应在 <code>config.toml</code> 中完成。</p>
+            </section>
+
+            <section id="custom-behavior">
+                <h2>自定义行为</h2>
+                <h3>自定义系统提示词</h3>
+                <p>在 <code>~/.vibe/prompts/</code> 目录下创建 <code>.md</code> 文件。在配置中设置：</p>
+                <pre><code>system_prompt_id = "my_custom_prompt"</code></pre>
+
+                <h3>自定义 Agent 配置</h3>
+                <p>您可以为特定用例（如红队测试、专项任务）创建自定义 Agent 配置。在 <code>~/.vibe/agents/</code> 目录下添加 TOML 配置文件（例如
+                    <code>redteam.toml</code>）。
+                </p>
+                <p>使用时运行：<code>vibe --agent redteam</code></p>
+
+                <p><strong>配置示例 (<code>~/.vibe/agents/redteam.toml</code>)：</strong></p>
+                <pre><code># 红队测试自定义配置
+active_model = "devstral-2"
+system_prompt_id = "redteam" # 对应 ~/.vibe/prompts/redteam.md
+
+# 禁用此 Agent 的部分工具
+disabled_tools = ["search_replace", "write_file"]
+
+# 覆盖此 Agent 的工具权限
+[tools.bash]
+permission = "always"
+[tools.read_file]
+permission = "always"</code></pre>
+            </section>
+
+            <section id="providers">
+                <h2>更换提供商与模型</h2>
+                <p>您可以在 <code>config.toml</code> 中添加第三方提供商（如 OpenRouter）：</p>
+                <pre><code>[[providers]]
+name = "openrouter"
+api_base = "https://openrouter.ai/api/v1"
+api_key_env_var = "OPENROUTER_API_KEY"
+api_style = "openai"
+
+[[models]]
+name = "mistralai/devstral-2512:free"
+provider = "openrouter"
+alias = "devstral-openrouter"
+active_model = "devstral-openrouter"</code></pre>
+                <p>创建模型后，您也可以在 Vibe 中直接使用 <code>/config</code> 命令动态切换模型。</p>
+            </section>
+
+            <section id="mcp">
+                <h2>MCP 服务器配置</h2>
+                <p>通过配置 MCP (Model Context Protocol) 服务器，您可以扩展 Vibe 的工具能力。支持的传输协议包括：<code>http</code>,
+                    <code>streamable-http</code>, <code>stdio</code>。
+                </p>
+
+                <h3>配置示例</h3>
+                <pre><code>[[mcp_servers]]
+name = "my_http_server"
+transport = "http"
+url = "http://localhost:8000"
+headers = { "Authorization" = "Bearer my_token" }
+api_key_env = "MY_API_KEY_ENV_VAR"
+api_key_header = "Authorization"
+api_key_format = "Bearer {token}"
+
+[[mcp_servers]]
+name = "fetch_server"
+transport = "stdio"
+command = "uvx"
+args = ["mcp-server-fetch"]</code></pre>
+
+                <h3>关键字段说明</h3>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid var(--border); text-align: left;">
+                            <th style="padding: 0.5rem;">字段</th>
+                            <th style="padding: 0.5rem;">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 0.5rem;"><code>name</code></td>
+                            <td style="padding: 0.5rem;">服务器别名，将用作工具名称前缀</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem;"><code>transport</code></td>
+                            <td style="padding: 0.5rem;">传输类型: <code>http</code>, <code>streamable-http</code>,
+                                <code>stdio</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem;"><code>url</code></td>
+                            <td style="padding: 0.5rem;">HTTP 传输的基础 URL</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem;"><code>command</code></td>
+                            <td style="padding: 0.5rem;">stdio 传输及其参数</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem;"><code>api_key_env</code></td>
+                            <td style="padding: 0.5rem;">包含 API 密钥的环境变量名</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>MCP 工具命名与权限</h3>
+                <p>MCP 工具命名遵循 <code>{server_name}_{tool_name}</code> 的模式（使用下划线连接）。您可以像内置工具一样配置它们的权限：</p>
+                <pre><code># 为特定 MCP 工具配置权限
+[tools.fetch_server_get]
+permission = "always"
+
+[tools.my_http_server_query]
+permission = "ask"</code></pre>
+            </section>
+
+            <section id="tools-control">
+                <h2>启用/禁用工具</h2>
+                <p>使用 <code>enabled_tools</code> 和 <code>disabled_tools</code> 字段控制工具的可用性。支持精确匹配、Glob 模式和正则表达式。</p>
+
+                <div class="card">
+                    <h4>配置示例</h4>
+                    <pre><code># 1. Glob 模式：仅启用以 "serena_" 开头的工具
+enabled_tools = ["serena_*"]
+
+# 2. 正则表达式 (前缀 re:)：匹配完整工具名
+enabled_tools = ["re:^serena_.*$"]
+
+# 3. 启发式正则：包含特殊字符的也被视为正则
+enabled_tools = ["serena.*"]
+
+# 4. 混合使用：禁用组但排除特定项
+disabled_tools = ["mcp_*", "grep"]</code></pre>
+                </div>
+
+                <p class="note">注意：MCP 工具名称使用下划线（例如 <code>serena_list</code> 而非 <code>serena.list</code>）。正则模式使用
+                    <code>fullmatch</code> 进行匹配。
+                </p>
+            </section>
+
+            <section id="capabilities-note" style="margin-top: 2rem;">
+                <p class="note">💡 提示：要运行生成代码，请务必在 Settings > Capabilities 中启用代码执行和文件创建权限。</p>
+            </section>
+
+            <footer
+                style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center;">
+                <span>Mistral AI © 2025 · 中文文档项目</span>
+                <a href="https://github.com/mistralai/mistral-vibe" target="_blank"
+                    style="color: var(--text-muted); text-decoration: none; transition: color 0.2s;"
+                    onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">
+                    GitHub 仓库 ↗
+                </a>
+            </footer>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

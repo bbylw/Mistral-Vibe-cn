@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>快速入门 - Mistral Vibe 中文文档</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/swap">
+                <rect width="32" height="32" rx="8" fill="#9d7cf6" />
+                <path d="M10 22L16 10L22 22" stroke="white" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            <span>Mistral Vibe</span>
+        </a>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-group">
+                <div class="sidebar-title">开始使用</div>
+                <a href="index.html" class="sidebar-link">CLI 介绍</a>
+                <a href="install.html" class="sidebar-link">安装指南</a>
+                <a href="quickstart.html" class="sidebar-link active">快速入门</a>
+            </div>
+            <div class="sidebar-group">
+                <div class="sidebar-title">进阶配置</div>
+                <a href="configuration.html" class="sidebar-link">配置说明</a>
+            </div>
+        </nav>
+
+        <main>
+            <h1>快速入门</h1>
+            <p>本指南将帮助您快速上手 Vibe。更高级的自定义请参考 <a href="configuration.html" style="color: var(--accent);">配置指南</a>。</p>
+
+            <section id="get-started">
+                <h2>开启您的第一个项目</h2>
+                <p>首先，进入您的项目根目录：</p>
+                <pre><code>cd /path/to/your/project</code></pre>
+                <p>然后启动 Vibe：</p>
+                <pre><code>vibe</code></pre>
+
+                <div class="card">
+                    <h3>首次运行说明</h3>
+                    <ul>
+                        <li>自动创建默认配置：<code>~/.vibe/config.toml</code></li>
+                        <li>提示您选择界面主题。</li>
+                        <li>提示您输入 API 密钥（如果未配置）。可以从 <a href="https://console.mistral.ai/codestral/vibe" target="_blank"
+                                style="color: var(--accent);">Mistral Console</a> 获取。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="interactive-mode">
+                <h2>交互模式</h2>
+                <p>直接运行 <code>vibe</code> 即可进入与 AI 代理的对话循环。这是推荐的使用方式。</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>多行输入</h3>
+                        <p>使用 <code>Ctrl+J</code> 或 <code>Shift+Enter</code> 插入换行符。</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>引用文件</h3>
+                        <p>在提示中使用 <code>@</code> 符号触发智能补全，例如：<code>> 读取文件 @src/main.js</code></p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>执行 Shell</h3>
+                        <p>使用 <code>!</code> 前缀直接执行命令，绕过 AI：<code>> !ls -l</code></p>
+                    </div>
+                </div>
+
+                <h3>常用命令与快捷键</h3>
+                <div class="feature-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div>
+                        <h4>📐 斜杠命令</h4>
+                        <ul class="dense-list">
+                            <li><code>/h</code>, <code>/help</code>: 显示帮助信息</li>
+                            <li><code>/stats</code>, <code>/status</code>: 查看代理统计数据</li>
+                            <li><code>/cfg</code>, <code>/config</code>, <code>/model</code>, <code>/theme</code>:
+                                编辑配置或切换模型</li>
+                            <li><code>/r</code>, <code>/reload</code>: 重新加载磁盘配置</li>
+                            <li><code>/clear</code>, <code>/reset</code>: 清除对话历史</li>
+                            <li><code>/log</code>, <code>/logpath</code>: 显示当前交互日志文件路径</li>
+                            <li><code>/compact</code>, <code>/summarize</code>: 总结并压缩对话历史</li>
+                            <li><code>/exit</code>, <code>/q</code>, <code>/quit</code>: 退出程序</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>⌨️ 键盘快捷键</h4>
+                        <ul class="dense-list">
+                            <li><code>Enter</code>: 发送消息</li>
+                            <li><code>Ctrl+J</code> / <code>Shift+Enter</code>: 插入换行</li>
+                            <li><code>Shift+Tab</code>: 切换自动批准模式 (Auto-approve)</li>
+                            <li><code>Ctrl+O</code>: 切换工具输出视图显示</li>
+                            <li><code>Ctrl+T</code>: 切换待办事项 (Todo) 视图显示</li>
+                            <li><code>Ctrl+C</code>: 退出（或清除当前输入）</li>
+                            <li><code>Escape</code>: 中断代理或关闭对话框</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h4>🚀 自动批准模式 (Auto-approve)</h4>
+                    <p>使用 <code>--auto-approve</code> 标志启动 Vibe 可以自动批准所有工具执行，无需手动确认。</p>
+                    <p>在交互模式下，您随时可以通过按 <code>Shift+Tab</code> 快捷键来切换此模式的开启/关闭状态。</p>
+                </div>
+            </section>
+
+            <section id="programmatic-mode">
+                <h2>编程模式</h2>
+                <p>您也可以通过 <code>--prompt</code> 标志或管道输入非交互式地运行 Vibe，这非常适合脚本自动化：</p>
+                <pre><code>vibe --prompt "重构 cli/main.py 中的主函数使其更模块化。"</code></pre>
+                <p class="note">注意：在编程模式下，Vibe 默认使用 <strong>自动批准模式 (auto-approve)</strong>。</p>
+            </section>
+
+            <section id="guardrails">
+                <h2>安全防护与确认</h2>
+                <p>对于实质性的任务（重构、多文件更新），Vibe 会将工作拆分为多个安全步骤，并在执行前请求您的确认。</p>
+                <p>运行完成后，您可以查看到完整的执行日志和输出结果。</p>
+            </section>
+
+            <footer
+                style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center;">
+                <span>Mistral AI © 2025 · 中文文档项目</span>
+                <a href="https://github.com/mistralai/mistral-vibe" target="_blank"
+                    style="color: var(--text-muted); text-decoration: none; transition: color 0.2s;"
+                    onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">
+                    GitHub 仓库 ↗
+                </a>
+            </footer>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
